@@ -11,7 +11,16 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
+    created(){
+        axios.get('/user?ID=456546546546546')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 }
 </script>
 

@@ -6,3 +6,17 @@
     </div>
 
 </template>
+
+
+<script>
+        axios.defaults.baseURL = 'https://localhost:8000';
+        
+        axios.get('/user?ID=12345')
+                .then(function (response) {
+                console.log(response);
+                    })
+        .catch(function (error) {
+                    console.log(error);
+        });
+
+</script>
