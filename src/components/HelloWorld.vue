@@ -9,17 +9,23 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+
     }
   },
     created(){
         axios.get('/user?ID=456546546546546')
             .then(function (response) {
                 console.log(response);
+                console.log(this.$serverName);
             })
             .catch(function (error) {
                 console.log(error);
+                console.log(this.$serverName);
             });
+    },
+    beforeCreate: function() {
+        console.log(this.$_serverName)
     }
 }
 </script>
