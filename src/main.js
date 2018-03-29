@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import AmCharts from 'amcharts3'
+import AmSerial from 'amcharts3/amcharts/serial'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

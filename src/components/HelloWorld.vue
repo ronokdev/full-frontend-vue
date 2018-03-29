@@ -10,22 +10,35 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+       axiosurl:''
 
     }
   },
+    beforecreate:function () {
+
+    },
     created(){
-        axios.get('/user?ID=456546546546546')
-            .then(function (response) {
-                console.log(response);
-                console.log(this.$serverName);
-            })
-            .catch(function (error) {
-                console.log(error);
-                console.log(this.$serverName);
-            });
+        this.axiosurl = 'http://'+this.$_serverName+':8855/api/test';
     },
     beforeCreate: function() {
         console.log(this.$_serverName)
+    },
+    methods : {
+                axiosfetch : function () {
+                   axios({
+                       method: 'get',
+                       url: this.axiosurl,
+                   })
+                       .then(function (response) {
+                           console.log(response);
+                       })
+                       .catch(function (error) {
+                           console.log(error);
+                       });
+               }
+    },
+    mounted:function () {
+        this.axiosfetch();
     }
 }
 </script>
