@@ -9,7 +9,7 @@
                 <span><h1>Chart is loading...</h1></span>
             </div>
         </div>
-        <div class="col-sm-2" style="border: 2px solid #e9ecef;border-radius: 10px;">
+        <div class="col-sm-5" style="border: 0px solid #e9ecef;border-radius: 10px;">
             <div id="chartdivClock"></div>
         </div>
     </div>
@@ -151,44 +151,48 @@
 
                 createClock(){
                     var chart = AmCharts.makeChart( "chartdivClock", {
-                        "type": "gauge",
-                        "theme": "light",
-                        "startDuration": 0.3,
-                        "marginTop": 20,
-                        "marginBottom": 50,
-                        "axes": [ {
+                         "type": "gauge",
+                          "theme": "dark",
+                          "startDuration": 0.3,
+                          "marginTop": 0,
+                          "marginBottom": 0,
+                          "axes": [ {
                             "axisAlpha": 0.3,
                             "endAngle": 360,
                             "endValue": 12,
                             "minorTickInterval": 0.2,
                             "showFirstLabel": false,
                             "startAngle": 0,
-                            "axisThickness": 1,
+                            "axisThickness": 2,
                             "valueInterval": 1
-                        } ],
-                        "arrows": [ {
+                          } ],
+                          // Hour
+                          "arrows": [ {
                             "radius": "50%",
                             "innerRadius": 0,
                             "clockWiseOnly": true,
-                            "nailRadius": 10,
+                            "nailRadius": 2,
+                            "startWidth": 10,
                             "nailAlpha": 1
-                        }, {
+                          }, {
+                            // Mintue
                             "nailRadius": 0,
                             "radius": "80%",
-                            "startWidth": 6,
+                            "startWidth": 5,
                             "innerRadius": 0,
                             "clockWiseOnly": true
-                        }, {
+                          }, {
+                            // Second
                             "color": "#CC0000",
-                            "nailRadius": 4,
-                            "startWidth": 3,
+                            "nailRadius": 5,
+                            "startWidth": 6,
                             "innerRadius": 0,
                             "clockWiseOnly": true,
                             "nailAlpha": 1
-                        } ],
-                        "export": {
-                            "enabled": true
-                        }
+                          } ],
+                          "export": {
+                            "enabled": false
+                          }
                     } );
 
 // update each second
@@ -230,7 +234,7 @@
     }
     #chartdivClock {
         width	: 100%;
-        height	: 500px;
+	      height	: 150px;
     }
 
     .amcharts-pie-slice {
