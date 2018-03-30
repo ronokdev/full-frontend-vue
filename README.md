@@ -16,7 +16,7 @@ npm run build
 
 
 # AmChart →
->
+
 ###  **Url** → _http://localhost:8080/test/ronoktest_
 ### **Componenet Path** →  _full-frontend-vue\src\components\testComponent.vue_
 ### **ChartType** → Pie
