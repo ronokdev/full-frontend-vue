@@ -1,10 +1,18 @@
 <template>
-    <div>
-        <button @click="ReloadChart">Reload Chart</button>
-        <div id="chartdiv" style="width: 100%; height: 400px;"></div>
-        <div id="curtain"><span><h1>Chart is loading...</h1></span></div>
-    </div>
+    <div class="row">
+        <div class="col-sm-6 mr-5" style="border: 2px solid #e9ecef;border-radius: 10px;">
+            <button @click="ReloadChart" type="button" class="btn btn-outline-primary">Reload Chart</button>
+            <div id="chartdiv" style="width: 100%; height: 400px;">
 
+            </div>
+            <div id="curtain">
+                <span><h1>Chart is loading...</h1></span>
+            </div>
+        </div>
+        <div class="col-sm-2" style="border: 2px solid #e9ecef;border-radius: 10px;">
+            <div id="chartdivClock"></div>
+        </div>
+    </div>
 </template>
 
 
@@ -17,6 +25,7 @@
             },
             created(){
                 this.CreateChart();
+                this.createClock();
 
             },
             mounted(){
@@ -28,6 +37,12 @@
                     console.log("Reloading Chart");
                     this.CreateChart();
                 },
+
+                /*
+                    # Pie Chart
+                    # With elastic Start Effect
+                    Pie Chart ------------- START --------------------------
+                */
                 CreateChart()
                 {
                     var chart =  AmCharts.makeChart("chartdiv", {
@@ -37,8 +52,12 @@
                         "addClassNames": true,
                         "legend": {
                             "position": "right",
-                            "marginRight": 100,
-                            "autoMargins": false
+                            "markerType":"circle",   //square, circle, diamond, triangleUp, triangleDown, triangleLeft, triangleDown, bubble, line
+                            "valueAlign":"right",
+                            "markerSize":25,
+                            "useMarkerColorForValues":true,
+                            "valueWidth":80
+
                         },
                         "innerRadius": "30%",
                         "defs": {
@@ -98,7 +117,15 @@
                                 var curtain = document.getElementById("curtain");
                                 curtain.parentElement.removeChild(curtain);
                             }
-                        }]
+                        }],
+                        "titles": [
+                            {
+                                "text": "CountryName Vs Population",
+                                "size": 18,
+                                "alpha":1,
+                                "color" : "red"
+                            }
+                        ]
 
                     });
 
@@ -118,6 +145,74 @@
                         var wedge = e.dataItem.wedge.node;
                         wedge.parentNode.appendChild(wedge);
                     }
+                },
+
+                // Pie Chart ------------- END --------------------------
+
+                createClock(){
+                    var chart = AmCharts.makeChart( "chartdivClock", {
+                        "type": "gauge",
+                        "theme": "light",
+                        "startDuration": 0.3,
+                        "marginTop": 20,
+                        "marginBottom": 50,
+                        "axes": [ {
+                            "axisAlpha": 0.3,
+                            "endAngle": 360,
+                            "endValue": 12,
+                            "minorTickInterval": 0.2,
+                            "showFirstLabel": false,
+                            "startAngle": 0,
+                            "axisThickness": 1,
+                            "valueInterval": 1
+                        } ],
+                        "arrows": [ {
+                            "radius": "50%",
+                            "innerRadius": 0,
+                            "clockWiseOnly": true,
+                            "nailRadius": 10,
+                            "nailAlpha": 1
+                        }, {
+                            "nailRadius": 0,
+                            "radius": "80%",
+                            "startWidth": 6,
+                            "innerRadius": 0,
+                            "clockWiseOnly": true
+                        }, {
+                            "color": "#CC0000",
+                            "nailRadius": 4,
+                            "startWidth": 3,
+                            "innerRadius": 0,
+                            "clockWiseOnly": true,
+                            "nailAlpha": 1
+                        } ],
+                        "export": {
+                            "enabled": true
+                        }
+                    } );
+
+// update each second
+                    setInterval( updateClock, 1000 );
+
+// update clock
+                    function updateClock() {
+                        if(chart.arrows.length > 0){
+                            // get current date
+                            var date = new Date();
+                            var hours = date.getHours();
+                            var minutes = date.getMinutes();
+                            var seconds = date.getSeconds();
+
+                            if(chart.arrows[ 0 ].setValue){
+                                // set hours
+                                chart.arrows[ 0 ].setValue( hours + minutes / 60 );
+                                // set minutes
+                                chart.arrows[ 1 ].setValue( 12 * ( minutes + seconds / 60 ) / 60 );
+                                // set seconds
+                                chart.arrows[ 2 ].setValue( 12 * date.getSeconds() / 60 );
+                            }
+                        }
+                    }
                 }
 
             }
@@ -132,6 +227,10 @@
         width: 100%;
         height: 500px;
         font-size: 11px;
+    }
+    #chartdivClock {
+        width	: 100%;
+        height	: 500px;
     }
 
     .amcharts-pie-slice {
