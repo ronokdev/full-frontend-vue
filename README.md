@@ -35,7 +35,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ### **Componenet Path** →  _full-frontend-vue\src\components\testComponent.vue_
 ### **ChartType** → Pie
 
-# _Plesas Check to Get More Information_
+## Plesas Check to Get More Information
 
 
 
